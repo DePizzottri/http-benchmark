@@ -13,7 +13,7 @@
             "args": [
                 "-az",
                 "-e ssh -p 2222",
-                "~/tmp/test",
+                "~/tmp/benchmarks",
                 "max@159.69.202.10:~/"
             ]
         },
@@ -25,7 +25,7 @@
                 "-t",
                 "-p 2222",
                 "max@159.69.202.10",
-                "cd ~/test/build && cmake -DCMAKE_BUILD_TYPE=Release -DBOOST_ROOT=/home/max/libs/boost_1_68_0 BOOST_LIBRARY_DIRS=/home/max/libs/boost_1_68_0/stage/lib .."
+                "cd ~/benchmarks/build && cmake -DCMAKE_BUILD_TYPE=Release -DBOOST_ROOT=/home/max/libs/boost_1_68_0 BOOST_LIBRARY_DIRS=/home/max/libs/boost_1_68_0/stage/lib .."
             ],
             "dependsOn": [
                 "rsync"
@@ -39,7 +39,7 @@
                 "-t",
                 "-p 2222",
                 "max@159.69.202.10",
-                "cd ~/test/build && make -j2"
+                "cd ~/benchmarks/build && make -j2"
             ],
             "dependsOn":[
                 "remote cmake"
@@ -57,7 +57,7 @@
                 "-t",
                 "-p 2222",
                 "max@127.0.0.1",
-                "/home/max/test/build/TetsCMakeMacos -c3"
+                "/home/max/benchmarks/build/TetsCMakeMacos -c3"
             ],
             "dependsOn":[
                 "remote make"

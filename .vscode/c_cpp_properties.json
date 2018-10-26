@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/includes",
+                "/Users/m_skvortsov/libs//seastar",
+                "/Users/m_skvortsov/libs//seastar/fmt",
+                "/Users/m_skvortsov/libs/seastar/build/debug/gen",
+                "/Users/m_skvortsov/libs/xubuntu/include/x86_64-linux-gnu",
+                "/Users/m_skvortsov/libs/boost_1_68_0"
+            ],
+            "defines": [
+                "SEASTAR_HAVE_GCC6_CONCEPT",
+                "SEASTAR_HAVE_HWLOC",
+                "EASTAR_HAVE_NUMA",
+                "SEASTAR_HAS_MEMBARRIER",
+                "SEASTAR_HAVE_LZ4_COMPRESS_DEFAULT",
+                "SEASTAR_HAVE_ASAN_FIBER_SUPPORT"
+            ],
+            "macFrameworkPath": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}

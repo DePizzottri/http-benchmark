@@ -13,8 +13,8 @@
             "args": [
                 "-az",
                 "-e ssh -p 2222",
-                "~/tmp/benchmarks",
-                "max@159.69.202.10:~/"
+                "~/code/benchmarks",
+                "max@xxx.xxx.xxx.xxx:~/"
             ]
         },
         {   
@@ -24,7 +24,7 @@
             "args": [
                 "-t",
                 "-p 2222",
-                "max@159.69.202.10",
+                "max@xxx.xxx.xxx.xxx",
                 "cd ~/benchmarks/build && cmake -DCMAKE_BUILD_TYPE=Release -DBOOST_ROOT=/home/max/libs/boost_1_68_0 BOOST_LIBRARY_DIRS=/home/max/libs/boost_1_68_0/stage/lib .."
             ],
             "dependsOn": [
@@ -38,7 +38,7 @@
             "args": [
                 "-t",
                 "-p 2222",
-                "max@159.69.202.10",
+                "max@xxx.xxx.xxx.xxx",
                 "cd ~/benchmarks/build && make -j2"
             ],
             "dependsOn":[
@@ -57,7 +57,7 @@
                 "-t",
                 "-p 2222",
                 "max@127.0.0.1",
-                "/home/max/benchmarks/build/TetsCMakeMacos -c3"
+                "/home/max/benchmarks/build/seastar_skynet_benchmark -c2"
             ],
             "dependsOn":[
                 "remote make"

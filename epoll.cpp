@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/syscall.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
@@ -23,9 +24,11 @@
 int consume(int fd, char* begin, char* end) {
     thread_local std::string buf = 
 R"(HTTP/1.1 200 OK
-Server: Seastar httpd
-Date: 18 Oct 2018 12:00:10 GMT
+Server: nginx
+Date: Thu, 08 Nov 2018 09:10:41 GMT
+Content-Type: text/html
 Content-Length: 60
+Connection: keep-alive
 
 hell0
 hell1
@@ -39,7 +42,9 @@ hell8
 hell9
 )";
 
-    auto sended = write(fd, buf.c_str(), buf.size());
+    // auto sended = write(fd, buf.c_str(), buf.size());
+
+    auto sended = syscall(SYS_write, fd, buf.c_str(), buf.size());
     
     if(sended != buf.length())
     {
@@ -127,7 +132,8 @@ create_and_bind (char *port)
 void read_loop(int efd, int sfd, epoll_event* events) {
       int n, i;
 
-      n = epoll_wait (efd, events, MAXEVENTS/4, 0);
+      // n = epoll_wait (efd, events, MAXEVENTS/4, 0);
+      n = syscall(SYS_epoll_wait, efd, events, MAXEVENTS/4, 0);
       for (i = 0; i < n; i++)
 	{
 	  if ((events[i].events & EPOLLERR) ||
@@ -205,7 +211,8 @@ void read_loop(int efd, int sfd, epoll_event* events) {
                   ssize_t count;
                   thread_local char buf[2048];
 
-                  count = read (fd, buf, sizeof buf);
+                  // count = read (fd, buf, sizeof buf);
+                  count = syscall(SYS_read, fd, buf, sizeof buf);
                   if (count == -1)
                     {
                       /* If errno == EAGAIN, that means we have read all
@@ -237,7 +244,7 @@ void read_loop(int efd, int sfd, epoll_event* events) {
 int
 main (int argc, char *argv[])
 {
-  std::cout << "epoll+nomadb oct 18 (parallel epoll, affinity, full unsafe, epoll 0)" << std::endl;
+  std::cout << "nginx headers, epoll0, syscalls" << std::endl;
 
   int sfd, s;
   int efd;

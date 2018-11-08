@@ -13,15 +13,26 @@ class handl : public httpd::handler_base {
 public:
     virtual future<std::unique_ptr<reply> > handle(const sstring& path,
             std::unique_ptr<request> req, std::unique_ptr<reply> rep) {
-        rep->_content = "hello";
+        rep->_content = 
+        R"(hell0
+hell1
+hell2
+hell3
+hell4
+hell5
+hell6
+hell7
+hell8
+hell9
+)";
+
+        rep->add_header("Content-Type", "text/html");
+        rep->add_header("Connection", "keep-alive");
         return make_ready_future<std::unique_ptr<reply>>(std::move(rep));
     }
 };
 
 void set_routes(routes& r) {
-    // function_handler* h1 = new function_handler([](const_req req) {
-    //     return "hello";
-    // });
     r.add(operation_type::GET, url("/"), new handl());
     r.add(operation_type::GET, url("/file").remainder("path"),
             new directory_handler("/"));
